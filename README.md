@@ -2,6 +2,8 @@
 
 ![Схема](/src/public/scheme.jpg)
 
+# Порт:3000
+
 ## 1.Установите зависимости  
 ```npm install``` 
 
@@ -14,3 +16,4 @@ npm run start
 ```
 npm run dev
 ```
+
