@@ -1,0 +1,210 @@
+/*                                *  C++  *                                  *\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  11
+     \\/     M anipulation  |
+\*                                                                           */
+FoamFile
+{
+    format      ascii;
+    class       dictionary;
+    object      blockMeshDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+convertToMeters 0.001;
+inlet  33;
+outlet 55;
+parFromRightBlock 7;
+
+
+vertices
+(
+    (0 0 0)//0
+    (0 0 0)//1
+    (#calc"66 - $parFromRightBlock - 5" 0 0)//2
+    (66 0 0)//3
+    (66 #calc"- $outlet *0.2" 0)//4
+    (88 #calc"- $outlet *0.2" 0)//5
+    (88 0 0)//6
+    (88 $inlet 0)//7
+    (88 #calc"$outlet *0.8" 0)//8
+    (66 #calc"$outlet *0.8" 0)//9
+    (66 $inlet 0)//10
+    (#calc"66 - $parFromRightBlock - 5" $inlet 0 )//11
+    (0 0 0)//12
+    (0 $inlet 0)//13
+    (#calc"66 - $parFromRightBlock - 10" 19 0)//14
+    (#calc"66 - $parFromRightBlock - 10" 13 0)//15
+    (#calc"66 - $parFromRightBlock - 5" 5 0)//16
+    (#calc"66 - $parFromRightBlock" 13 0)//17
+    (#calc"66 - $parFromRightBlock" 19 0)//18
+    (#calc"66 - $parFromRightBlock - 5" 28 0)//19
+    
+    (0 0 0.1)//0
+    (0 0 0.1)//1
+    (#calc"66 - $parFromRightBlock - 5" 0 0.1)//2
+    (66 0 0.1)//3
+    (66 #calc"- $outlet *0.2" 0.1)//4
+    (88 #calc"- $outlet *0.2" 0.1)//5
+    (88 0 0.1)//6
+    (88 $inlet 0.1)//7
+    (88 #calc"$outlet *0.8" 0.1)//8
+    (66 #calc"$outlet *0.8" 0.1)//9
+    (66 $inlet 0.1)//10
+    (#calc"66 - $parFromRightBlock - 5" $inlet 0.1)//11
+    (0 0 0.1)//12
+    (0 $inlet 0.1)//13
+    (#calc"66 - $parFromRightBlock - 10" 19 0.1)//14
+    (#calc"66 - $parFromRightBlock - 10" 13 0.1)//15
+    (#calc"66 - $parFromRightBlock - 5" 5 0.1)//16
+    (#calc"66 - $parFromRightBlock" 13 0.1)//17
+    (#calc"66 - $parFromRightBlock" 19 0.1)//18
+    (#calc"66 - $parFromRightBlock - 5" 28 0.1)//19
+);
+
+blocks
+(
+    //left block
+    
+    hex (0 15 14 13 20 35 34 33) (30 30 1) simpleGrading (1 1 1) // mid trapeze 
+    hex (0 2 16 15 20 22 36 35) (30 30 1) simpleGrading (1 1 1) // low trapeze
+    hex (13 14 19 11 33 34 39 31) (30 30 1) simpleGrading (1 1 1) // upper trapeze
+    //triangle block
+    hex (2 3 17 16 22 23 37 36) (30 30 1) simpleGrading (1 1 1) // low trapeze beneath right trapeze
+    hex (3 10 18 17 23 30 38 37) (30 30 1) simpleGrading (1 1 1) // right trapeze
+    hex (18 10 11 19 38 30 31 39) (30 30 1) simpleGrading (1 1 1) // top trapeze upper right trapeze
+    hex (15 17 18 14 35 37 38 34) (30 30 1) simpleGrading (1 1 1) // rectangle between two triangles
+    // right block
+    hex (4 5 6 3 24 25 26 23) (30 30 1) simpleGrading (1 1 1) // upper rectangle
+    hex (3 6 7 10 23 26 27 30) (30 30 1) simpleGrading (1 1 1) // medium rectangle
+    hex (10 7 8 9 30 27 28 29) (30 30 1) simpleGrading (1 1 1) // down rectangle
+);
+
+edges
+(
+);
+
+boundary
+(
+    frontAndBack
+    {
+    type empty;
+    faces
+        (
+
+    //left block
+
+        //low trapeze
+
+        (0 2 16 15)
+        (20 22 36 35)
+
+        //mid trapeze
+
+        (0 15 14 13)
+        (20 35 34 33)
+
+        //top trapeze
+
+        (14 19 11 13)
+        (34 39 31 33)
+
+        //triangles block
+
+        //rectangle
+
+        (15 17 18 14)
+        (35 34 38 37)
+
+        //upper right trapeze
+
+        (18 19 11 10)
+        (38 39 31 30)
+
+        //beneath right trapeze
+
+        (2 3 17 16)
+        (22 23 37 36)
+
+        //right trapeze
+
+        (17 3 10 18)
+        (37 38 30 23)
+
+        //right block
+
+        //upper block
+
+        (10 7 8 9)
+        (30 29 28 27)
+
+        //medium block
+
+        (3 6 7 10)
+        (23 30 27 26)
+
+        //down block
+
+        (4 5 6 3)
+        (24 23 26 25)
+
+        );
+    }
+    
+
+    inlet
+    {
+        type patch;
+        faces
+        (
+            (0 13 33 20)
+        );
+    }
+    outlet
+    {
+        type patch;
+        faces
+        (
+            (8 7 27 28)//top
+            (7 6 26 27)//mid
+            (6 5 25 26)//low
+        );
+    }
+
+    triangles
+    {
+        type wall;
+        faces
+        (
+            (18 19 39 38)
+            (14 19 39 34)
+            (14 18 38 34)
+            (16 17 37 36)
+            (15 17 37 35)
+            (15 16 36 35)
+        );
+    }
+
+    topAndBottom
+    {
+        type wall;
+        faces
+        (
+            //top
+            (13 11 31 33)//left top trapeze
+            (11 10 30 31)//right top trapeze
+            (10 9 29 30)//wall
+            (9 8 28 29)//right block
+
+            //bottom 
+            (0 2 22 20)//left bottom trapeze
+            (2 3 23 22)//right bottom trapeze
+            (3 4 24 23)//wall
+            (4 5 25 24)//right block
+        );
+    }
+);
+
+// ************************************************************************* //

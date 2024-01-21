@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Параметризация 8 вариант</title>
+
+    <script src="./notifies/notifies.js" defer></script>
+    <script src="./index.js" defer></script>
+
+    <link rel="stylesheet" href="./notifies/notifies.css">
+    <link rel="stylesheet" href="./index.css">
+</head>
+<body>
+    <div class="container">
+        
+        <div class="status-messages">
+            <p class ="status-messages__title">Гаврилов Роман 211-324</p>
+            <p class="status-messages__title2">Расчёт 8 вариант</p>
+        </div>
+
+        <div class="wrapper">
+            <div class="left-block">
+                <img src="./scheme.jpg" 
+                    alt="Чертёж модели" class="drawing">
+    
+                
+            </div>
+            
+            <div class="right-block">
+                
+                <p class="params__title">
+                    Параметры
+                </p>
+    
+                <form action="" method="POST" id="params_form">
+                    <fieldset>
+                        <!-- <legend>Ширина впуска (inlet)</legend> -->
+                        <label for="model_length">Ширина впуска(inlet)</label>
+                        <input type="number" 
+                                min="10" 
+                                id="model_length" 
+                                name="model_inlet" 
+                                placeholder="ширина впуска(inlet)" 
+                                value="33">
+                    </fieldset>
+    
+                    <fieldset>
+                        <!-- <legend>Ширина выпуска (outlet)</legend> -->
+                        <label for="model_height">Ширина выпуска(outlet)</label>
+                        <input type="number"
+                                step="any"  
+                                min="40"
+                                id="model_height" 
+                                name="model_outlet" 
+                                placeholder="Ширина выпуска(outlet)"
+                                value="55">
+                    </fieldset>
+    
+                    <fieldset>
+                        <!-- <legend>Расстояние от правого края до ближайшей вершины треугольника</legend> -->
+                        <label for="model_distance">Расстояние от правого края до ближайшей вершины треугольника(S)</label>
+                        <input type="number" 
+                                id="model_distance"
+                                min="7" 
+                                name="model_parFromRightBlock" 
+                                placeholder="Расстояние (s)" 
+                                value="14">
+                    </fieldset>
+
+                    <button type="submit" class="calc_button">
+                        Запустить рассчёт
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
